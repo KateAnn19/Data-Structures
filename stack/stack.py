@@ -122,9 +122,6 @@ newStack.push(2)
 #     def pop(self):
 #         if(self.size == 0):
 #             return None
-#         # self.size -= 1
-#         # node = self.storage.remove_head()
-#         # return node
 #         return self.remove_tail()
 
 #     def __str__(self):
