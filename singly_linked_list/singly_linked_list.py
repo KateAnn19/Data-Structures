@@ -18,6 +18,9 @@ class Node:
    # method to update the node's value
     def set_next(self, new_next):
         self.next_node = new_next
+    
+    def __str__(self):
+        return f"Inside node self.value {self.value} |-> {self.next_node}".format(self=self)
 
 
 class LinkedList:
@@ -117,7 +120,7 @@ class LinkedList:
             return val
         
     def __str__(self):
-        return f"\n\n: Head {self.head}\n{self.tail}".format(self=self)
+        return f"Inside Singly Linked List self.head and self.tail {self.head}\n{self.tail}".format(self=self)
         
 linked_list = LinkedList()
 linked_list.add_to_head(0)

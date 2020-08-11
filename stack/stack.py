@@ -16,48 +16,65 @@ return elements in Last In First Out order.
 
 4. last in first out
 """
-class Stack:
+
+class Stack(LinkedList):
     def __init__(self):
-        self.size = 0
-        # self.storage = ?
-        self.storage = LinkedList()
-        # self.new_node = Node(value)
+        super().__init__()
+        
+    def __len__(self):
+        size = 0
+        if(self.head == None and self.tail == None):
+            size = 0
+           
 
-    def len(self):
-        if(self.storage.head == None and self.storage.tail == None):
-            return self.size
-        if(self.storage.head == self.storage.tail):
-            self.size = 1
-            return self.size
-        current = self.storage.head 
-        # keep iterating until the node after `current` is the tail
-        while current.get_next() != self.storage.tail:
-             # keep iterating 
-            current = current.get_next()
-            self.size += 1
-        self.size += 2 # one for the head and one for the tail
-        return self.size
+        elif(self.head == self.tail):
+            size = 1
+            
+        else:
+            current_node = self.head
+            while current_node is not None:
+                size += 1
+                current_node = current_node.next_node
+            
+        return size
 
-        while self.storage.get_next() != self.storage.tail:
-            # keep iterating 
-            self.size += 1
-        self.size += 1    
-        return self.size
         
     def push(self, value):
         new_node = Node(value)
-        self.storage.add_to_tail(value)
-        return self.storage
+        self.add_to_tail(value)
+        
         
     def pop(self):
-        return self.storage.remove_tail()
+        return self.remove_tail()
+
+    def __str__(self):
+        return f"Inside stack self.head and self.tail {self.head} {self.tail}\n\n".format(self=self)
 
    
 
 
 newStack = Stack()
 newStack.push(1)
+print(newStack)
 newStack.push(2)
+print(f"THIS IS LENGTH {len(newStack)}")
+print(newStack)
 newStack.push(3)
-print(newStack.len())
-print(newStack.pop())
+print(f"THIS IS LENGTH {len(newStack)}")
+
+# print(newStack.pop())
+# print(newStack)
+# print(newStack.pop())
+# print(newStack)
+# print(newStack.pop())
+# print(newStack)
+# print(newStack.pop())
+# print(newStack)
+# print(newStack.__len__())
+
+#newStack.pop()
+#print(newStack.__len__())
+#newStack.pop()
+#print(newStack.__len__())
+
+

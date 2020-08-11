@@ -18,41 +18,33 @@ return elements in First In First Out order.
 Stretch: What if you could only use instances of your Stack class to implement the Queue?
          What would that look like? How many Stacks would you need? Try it!
 """
-class Queue:
+class Queue(LinkedList):
     def __init__(self):
-        self.size = 0
         self.storage = LinkedList()
+        super().__init__()
     
-    def len (self):
-        if(self.storage.head == None and self.storage.tail == None):
-            return self.size
-        if(self.storage.head == self.storage.tail):
-            self.size = 1
-            return self.size
-        current = self.storage.head 
-        # keep iterating until the node after `current` is the tail
-        while current.get_next() != self.storage.tail:
-             # keep iterating 
-            current = current.get_next()
-            self.size += 1
-        self.size += 2 # one for the head and one for the tail
-        return self.size
-
-        while self.storage.get_next() != self.storage.tail:
-            # keep iterating 
-            self.size += 1
-        self.size += 1    
-        return self.size
+    def __len__ (self):
+        size = 0
+        if(self.head == None and self.tail == None):
+            size = 0  
+        elif(self.head == self.tail):
+            size = 1   
+        else:
+            current_node = self.head
+            while current_node is not None:
+                size += 1
+                current_node = current_node.next_node
+        return size
 
     def enqueue(self, value):
         # * `enqueue` adds an element to the back of the queue.
         new_node = Node(value)
-        self.storage.add_to_tail(value)
-        return self.storage
+        self.add_to_tail(value)
+        
 
     def dequeue(self):
         #* `dequeue` removes and returns the element at the front of the queue.
-        return self.storage.remove_head()
+        return self.remove_head()
 
 
     
@@ -60,7 +52,7 @@ newQ = Queue()
 newQ.enqueue(1)
 newQ.enqueue(2)
 
-print(newQ.len())
+
 print(newQ.dequeue())
 
     
