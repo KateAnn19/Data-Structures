@@ -18,9 +18,11 @@ class Node:
    # method to update the node's value
     def set_next(self, new_next):
         self.next_node = new_next
-    
+
     def __str__(self):
         return f"Inside node self.value {self.value} |-> {self.next_node}".format(self=self)
+    
+    
 
 
 class LinkedList:
@@ -120,18 +122,28 @@ class LinkedList:
             return val
         
     def __str__(self):
-        return f"Inside Singly Linked List self.head and self.tail {self.head}\n{self.tail}".format(self=self)
+        output = ''
+        current_node = self.head #create a tracker node variable
+        while current_node is not None: #loop until its None
+            output += f'{current_node.value} ->'
+            current_node = current_node.next_node # update the tracker node to the next node 
+        return output.format(self=self)
+    #looping through linked list 
+    #create a tracker node variable
+    #loop until its None
+    # update the tracker node to the next node
         
-linked_list = LinkedList()
-linked_list.add_to_head(0)
-linked_list.add_to_tail(10)
-# print(f"does our LL contain 0? {linked_list.contains(0)}")
-# print(f"does our LL contain 1? {linked_list.contains(1)}")
+# linked_list = LinkedList()
+# linked_list.add_to_head(0)
+# linked_list.add_to_tail(10)
+# # print(f"does our LL contain 0? {linked_list.contains(0)}")
+# # print(f"does our LL contain 1? {linked_list.contains(1)}")
 
-linked_list.add_to_head(2)
-#print(f"the start of the list is {linked_list.head.value}")
-linked_list.add_to_head(3)
-#print(f"the start of the list is {linked_list.head.value}")
+# linked_list.add_to_head(2)
+# #print(f"the start of the list is {linked_list.head.value}")
+# linked_list.add_to_head(3)
+# #print(f"the start of the list is {linked_list.head.value}")
 
-linked_list.remove_head()
-#print(f"This is the new head {linked_list.head.value}")
+# linked_list.remove_head()
+# #print(f"This is the new head {linked_list.head.value}")
+# print(linked_list)
