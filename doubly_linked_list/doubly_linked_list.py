@@ -35,6 +35,7 @@ class DoublyLinkedList:
         if self.head is None and self.tail is None:
             self.head = new_node
             self.tail = new_node
+            self.length += 1
         else:
             #new_node should point to current head
             temp = self.head 
@@ -53,10 +54,18 @@ class DoublyLinkedList:
     def remove_from_head(self):
         #* `remove_from_head` removes the head node and returns the value stored in it.
         oldHead = self.head
+        if self.head.next == None:
+            print("inside if condition")
+            self.head = None
+            self.tail = None
+            self.length = 0 
+            return oldHead.value
         temp = self.head.next
+        #temp.prev = None
         self.head = temp 
         self.length -= 1
-        return oldHead
+        #self.delete(self.head)
+        return oldHead.value
             
     """
     Wraps the given value in a ListNode and inserts it 
@@ -90,6 +99,11 @@ class DoublyLinkedList:
     def remove_from_tail(self):
         #* `remove_from_tail` removes the tail node and returns the value stored in it.
         oldTail = self.tail
+        if self.tail.prev == None:
+            self.head = None
+            self.tail = None
+            self.length = 0 
+            return oldTail.value
         temp = self.tail.prev
         self.tail = temp
         self.length -= 1
@@ -107,6 +121,7 @@ class DoublyLinkedList:
         self.head.next = temp2 
         temp2.prev = self.head
         temp.prev = None
+        self.length += 1
         
     """
     Removes the input node from its current spot in the 
@@ -121,6 +136,7 @@ class DoublyLinkedList:
         self.tail.prev = temp2
         temp2.next = self.tail
         temp.next = None
+        self.length += 1
         
 
     """
@@ -131,38 +147,46 @@ class DoublyLinkedList:
         #steps
         #edge cases:
         #Empty list return none
-        if self.length:
+        if self.length == 0:
             return None
         #only one element delete the one element
         # decrement the length by 1 
-        if self.head == self.tail:
+        if node == self.tail and node == self.head:
             self.head = None
             self.tail = None
+            self.length -= 1
+        
         #find the node
         # loop through the nodes 
         # start with the head and continue while the node is not found
+        
+        if node == self.head:
+            temp = self.head.next
+            self.head = temp
+            temp.prev = None
+            self.length -= 1
+            return
+        if node == self.tail:
+            temp = self.tail.prev
+            self.tail = temp
+            temp.next = None
+            self.length -= 1
+            return
+
+
         current_node = self.head
         while current_node is not None:
             ##Head
             #if the node is head remove the pointer for the next node that points back to the head
             #make the next node the new head
             # decrement the length by 1
-            if node == self.head:
-                temp = self.head.next
-                self.head = temp
-                temp.prev = None
-                length -= 1
-                break
-            current_node = current_node.next
+           
              ##Tail
             #if the node is tail remove the pointer from the prev node that points to tail
             #make the prev node the new tail
             # decrement the length by 1
-            if node == self.tail:
-                temp = self.tail.prev
-                self.tail = temp
-                temp.next = None
-                break
+        
+          
             #if the node is found and it is not the head or tail 
             # store the found node into a variable
             #point the prev node to the found node to the next node to the found node 
@@ -174,12 +198,13 @@ class DoublyLinkedList:
                 temp2 = current_node.prev
                 temp2.next = temp1
                 temp1.prev =  temp2
-                length -= 1
+                self.length -= 1
                 break
+
+            current_node = current_node.next
             #check if this is the node we are looking for 
             # if element is never found return None
-            elif current_node.next == None:
-                return "Not Found"
+            
 
     """
     Finds and returns the maximum value of all the nodes 
