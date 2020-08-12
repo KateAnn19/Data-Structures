@@ -32,11 +32,14 @@ class DoublyLinkedList:
     """
     def add_to_head(self, value):
         new_node = ListNode(value)
+        # if list currently empty 
         if self.head is None and self.tail is None:
+            #set head and tail to equal the new node
             self.head = new_node
             self.tail = new_node
             self.length += 1
         else:
+            #the list already has elements in it 
             #new_node should point to current head
             temp = self.head 
             new_node.next = temp
@@ -45,6 +48,12 @@ class DoublyLinkedList:
             #`add_to_head` replaces the head of the list with a new value that is passed in.
             temp.prev = self.head
             self.length += 1       
+            ##make new node's next value point to current head
+            # new_node.next = self.head
+            # self.head.prev = new_node
+            # self.head = new_node
+            #
+            #
        
     """
     Removes the List's current head node, making the
@@ -113,7 +122,9 @@ class DoublyLinkedList:
     List and inserts it as the new head node of the List.
     """
     def move_to_front(self, node):
-        # * `move_to_front` takes a reference to a node in the list and moves it to the front of the list, shifting all other list nodes down. 
+        # * `move_to_front` takes a reference to a node in the list and moves it to the front of the list, shifting all other list nodes down.
+        if node is self.head:
+            return  
         temp = node 
         self.delete(node)
         temp2 = self.head
@@ -129,6 +140,8 @@ class DoublyLinkedList:
     """
     def move_to_end(self, node):
         #  * `move_to_end` takes a reference to a node in the list and moves it to the end of the list, shifting all other list nodes up. 
+        if node is self.tail:
+            return 
         temp = node 
         self.delete(node)
         temp2 = self.tail
@@ -143,56 +156,87 @@ class DoublyLinkedList:
     Deletes the input node from the List, preserving the 
     order of the other elements of the List. (delete from anywhere in list)
     """
+    # def delete(self, node):
+    #     #steps
+    #     #edge cases:
+    #     #Empty list return none
+    #     if self.length == 0:
+    #         return None
+    #     #only one element delete the one element
+    #     # decrement the length by 1 
+    #     if node == self.tail and node == self.head:
+    #         self.head = None
+    #         self.tail = None
+    #         self.length -= 1
+        
+    #     #find the node
+    #     # loop through the nodes 
+    #     # start with the head and continue while the node is not found
+        
+    #     if node == self.head:
+    #         temp = self.head.next
+    #         self.head = temp
+    #         temp.prev = None
+    #         self.length -= 1
+    #         return
+    #     if node == self.tail:
+    #         temp = self.tail.prev
+    #         self.tail = temp
+    #         temp.next = None
+    #         self.length -= 1
+    #         return
+
+
+    #     current_node = self.head
+    #     while current_node is not None:
+           
+    #         if node == current_node:
+    #             temp1 = current_node.next
+    #             temp2 = current_node.prev
+    #             temp2.next = temp1
+    #             temp1.prev =  temp2
+    #             self.length -= 1
+    #             break
+
+    #         current_node = current_node.next
+    #         #check if this is the node we are looking for 
+    #         # if element is never found return None
     def delete(self, node):
-        #steps
         #edge cases:
-        #Empty list return none
-        if self.length == 0:
-            return None
+        #Empty list return none -> do nothing
+        if self.head is None and self.tail is None:
+            return 
         #only one element delete the one element
-        # decrement the length by 1 
         if node == self.tail and node == self.head:
             self.head = None
             self.tail = None
             self.length -= 1
-        
-        #find the node
-        # loop through the nodes 
-        # start with the head and continue while the node is not found
-        
+
+        #if it is the head node (make sure it is the tail node)
         if node == self.head:
             temp = self.head.next
             self.head = temp
             temp.prev = None
             self.length -= 1
             return
+            #teacher solution (there is a delete in his code in the Node class)
+            #self.head = node.next
+            #next_node = self.head.next
+            #next_node.prev = self.head.prev (sets prev to none essentially)
+
+        # if it is the tail node (make sure it is the tail node)
         if node == self.tail:
             temp = self.tail.prev
             self.tail = temp
             temp.next = None
             self.length -= 1
             return
-
-
+            #teacher solution (there is a delete in his code in the Node class)
+            #self.tail = node.prev
+            #new_node.prev.next = self.tail.next  (sets next to none essentially)
+            
         current_node = self.head
         while current_node is not None:
-            ##Head
-            #if the node is head remove the pointer for the next node that points back to the head
-            #make the next node the new head
-            # decrement the length by 1
-           
-             ##Tail
-            #if the node is tail remove the pointer from the prev node that points to tail
-            #make the prev node the new tail
-            # decrement the length by 1
-        
-          
-            #if the node is found and it is not the head or tail 
-            # store the found node into a variable
-            #point the prev node to the found node to the next node to the found node 
-            #point the next node to the found node back to the prev node to the found node
-            # decrement the length by 1
-
             if node == current_node:
                 temp1 = current_node.next
                 temp2 = current_node.prev
@@ -200,10 +244,12 @@ class DoublyLinkedList:
                 temp1.prev =  temp2
                 self.length -= 1
                 break
-
+       
+            
             current_node = current_node.next
             #check if this is the node we are looking for 
             # if element is never found return None
+        
             
 
     """
@@ -219,6 +265,15 @@ class DoublyLinkedList:
                 max = current_node.value
             current_node = current_node.next # update the tracker node to the next node 
         return max
+        #if not self.head:
+        #   return None
+        #max_val = self.head.value
+        #current = self.head
+        #while current:
+            #if current.value > max_val:
+                #max_val = current.val
+            #current = current.next
+        #return max_val
 
     def __str__(self):
         output = ''
