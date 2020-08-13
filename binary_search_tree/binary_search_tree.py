@@ -108,9 +108,8 @@ class BSTNode:
 
         if self.right.get_max() > self.value:
             max_value = self.right.get_max()
-        #else:
-            # print(f"Inside the base case {self.value}")
-            # max_value = self.value
+        # could just do 
+        # return self.right.get_max() #imp part is the return statement
         print(max_value)
         return max_value
             
@@ -129,6 +128,14 @@ class BSTNode:
             self.left.for_each(fn)
         if self.right:
             fn(self.value)
+            self.right.for_each(fn)
+
+    def for_each(self, fn):
+        fn(self.value)
+       # if self.value and self.right is None and self.left is None:
+        if self.left:
+            self.left.for_each(fn)
+        if self.right:
             self.right.for_each(fn)
         
         
