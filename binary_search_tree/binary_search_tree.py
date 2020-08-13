@@ -107,7 +107,6 @@ class BSTNode:
             return self.value
 
         if self.right.get_max() > self.value:
-            print(f"Inside the recursive call {self.value}")
             max_value = self.right.get_max()
         #else:
             # print(f"Inside the base case {self.value}")
@@ -118,8 +117,21 @@ class BSTNode:
 
     # Call the function `fn` on the value of each node
     # This method doesn't return anything 
+
     def for_each(self, fn):
-            
+        if self.right is None and self.left is None:
+            print(f"inside none {self.value}")            
+            fn(self.value)
+            return 
+       # if self.value and self.right is None and self.left is None:
+        if self.left:
+            fn(self.value)
+            self.left.for_each(fn)
+        if self.right:
+            fn(self.value)
+            self.right.for_each(fn)
+        
+        
 
     # Part 2 -----------------------
     # Print all the values in order from low to high
